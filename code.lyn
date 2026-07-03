@@ -1,0 +1,6 @@
+int main(){
+    print("Hello world!");
+}
+void help(){
+    int x = 1 + 2;
+}
