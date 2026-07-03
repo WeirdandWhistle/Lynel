@@ -20,7 +20,7 @@ public class Util {
         }
         char c = 0;
         for(int i = start; i <s.length();i++){
-            c = code.charAt(i);
+            c = s.charAt(i);
             if(!Character.isLetter(c) || !Character.isDigit(c) || c != '_') return i;
         }
 
@@ -83,5 +83,8 @@ public class Util {
             prevChar = code.charAt(i);
         }
         throw new IllegalArgumentException("No ending curly brace!");
+    }
+    public static int parseExpressionKeyword(int start, String code){
+        return findNextNoneVariableNameChar(start, code);
     }
 }
