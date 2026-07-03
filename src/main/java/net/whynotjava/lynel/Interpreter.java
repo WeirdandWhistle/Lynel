@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.*;
 import java.util.*;
 
+import static net.whynotjava.lynel.Util.*;
 import net.whynotjava.lynel.Function;
 
 public class Interpreter {
@@ -25,11 +26,25 @@ public class Interpreter {
 
     public int run(){
         try{
-
-           preScan();
-
+           if(!preScan()){
+            return 1;
+           }
            Function.logFunctionMapTree(functionMap);
 
+            int cursor = 0;
+            int next = findNextNoneVariableNameChar(cursor, code);
+            String expressionDef = code.substring(cursor, next);
+            cursor = next;
+
+            switch (expressionDef) {
+                case "print":
+                    next = findNext(cursor, code, '(');   
+
+                    break;
+            
+                default:
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +61,10 @@ public class Interpreter {
             sub = sub.substring(f.endIndex+1).trim();
             functionMap.put(f.name, f);
         }
+
+        Function main = functionMap.get("main");
+        if(main == null) return false;
+
         return true;
     }
 }

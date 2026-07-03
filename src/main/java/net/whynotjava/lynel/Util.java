@@ -14,13 +14,17 @@ public class Util {
         }
         throw new IllegalArgumentException("No char: '" + c + "'");
     }
-    public static int findNextNoneLetter(int start, String s){
-
+    public static int findNextNoneVariableNameChar(int start, String s){
+        if(Character.isDigit(s.charAt(start))){
+            return start;
+        }
+        char c = 0;
         for(int i = start; i <s.length();i++){
-            if(!Character.isLetter(s.charAt(i))) return i;
+            c = code.charAt(i);
+            if(!Character.isLetter(c) || !Character.isDigit(c) || c != '_') return i;
         }
 
-        throw new IllegalArgumentException("No none letter.");
+        throw new IllegalArgumentException("No none Variable name char.");
     }
     public static int numOf(String s, char c){
         int count = 0;

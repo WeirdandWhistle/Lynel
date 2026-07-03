@@ -25,7 +25,7 @@ public class Function {
         cursor = next+1;
         // System.out.println("return type '"+f.returnType+"'" + " next "+next);
 
-        next = findNextNoneLetter(cursor, code);
+        next = findNextNoneVariableNameChar(cursor, code);
         f.name = code.substring(cursor, next);
         cursor = findNext(next, code, '(');
         // System.out.println("name '"+f.name+"'");
