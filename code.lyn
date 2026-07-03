@@ -3,4 +3,8 @@ int main(){
 }
 void help(){
     int x = 1 + 2;
+    print(`x is ${x}`);
+}
+void stringTest(String echo){
+    print("echo \""+`${ehco}`+'"');
 }

@@ -6,6 +6,7 @@ import javax.management.RuntimeErrorException;
 import net.whynotjava.lynel.Variable;
 
 public class Util {
+    public static String charsThatStartAString = "`'\"";
     public static int findNext(int start, String s, char c){
         for(int j = 0; j <s.length();j++){
             // System.out.println(s.charAt(j) + " - " + (s.charAt(j)==c));
@@ -42,5 +43,41 @@ public class Util {
             return out;
         }
         return null;
+    }
+    public static boolean toggle(boolean a){
+        return a ? false : true;
+    }
+    public static int parseCurlyBraceBlock(String code){
+        if(code.charAt(0) != '{') throw new IllegalArgumentException("Curly brace code block must start with a '{'.");
+
+        boolean inString = false;
+        char closeStringChar = 0;
+        int nestDepth = 0;
+        char prevChar = 0;
+        for(int i = 0; i<code.length();i++){
+            if(!inString){
+                if(code.charAt(i) == '{'){
+                    nestDepth++;
+                }
+                else if(code.charAt(i) == '}'){
+                    nestDepth--;
+                }
+            }
+            if(prevChar != '\\' && charsThatStartAString.contains(new String(new char[]{code.charAt(i)}))){
+                if(code.charAt(i) == closeStringChar && inString){
+                    inString = false;
+                    closeStringChar = 0;
+                }                
+                else if(!inString){
+                    inString = true;
+                    closeStringChar = code.charAt(i);
+                }
+            }
+            if(nestDepth == 0){
+                return i;
+            }
+            prevChar = code.charAt(i);
+        }
+        throw new IllegalArgumentException("No ending curly brace!");
     }
 }

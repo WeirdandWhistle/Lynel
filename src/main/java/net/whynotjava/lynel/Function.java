@@ -44,9 +44,8 @@ public class Function {
     }
 
     public static int findFunctionCodeBlock(String code){
-        if(code.charAt(0) != '{') throw new IllegalArgumentException("Funciton must start with '{'!");
-        int end = findNext(0, code, '}');
-        return end;
+        System.out.println("findFunctionCodeBlock: '"+code+"'");
+        return parseCurlyBraceBlock(code);
     }
 
     // logging

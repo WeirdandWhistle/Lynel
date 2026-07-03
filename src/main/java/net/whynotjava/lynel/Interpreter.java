@@ -41,7 +41,7 @@ public class Interpreter {
     private boolean preScan(){
         String sub = code;
         while(sub.length() != 0){
-            System.out.println("sub: '"+sub+"'");
+            // System.out.println("sub: '"+sub+"'");
             Function f = Function.scanFunction(sub);
             sub = sub.substring(f.endIndex+1).trim();
             functionMap.put(f.name, f);
