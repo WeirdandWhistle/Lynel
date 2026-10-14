@@ -1,17 +1,24 @@
 package net.whynotjava.lynel;
 
-import net.whynotjava.lynel.Interpreter;
-import net.whynotjava.lynel.IntegerParser.IntegerParser;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import net.whynotjava.lynel.Tokenizer;
 
-public class Main{
-    public static void main(String[] args){
+public class Main {
+    public static void main(String[] args) {
         System.out.println("Start program\n--------------");
+        try {
 
-        IntegerParser ip = new IntegerParser("1 + 1");
+            String codeString = new String(Files.readAllBytes(Paths.get("code.lyn")), StandardCharsets.UTF_8);
+            ArrayList<String> tokens = Tokenizer.tokenize(codeString);
 
-        System.out.println("out: " + ip.run());
+            Tokenizer.logTokens(tokens);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // Interpreter i = new Interpreter("code.lyn");
-        // i.run();
+        System.out.println("--------------\nStop program");
     }
 }

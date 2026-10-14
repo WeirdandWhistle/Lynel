@@ -8,3 +8,7 @@ void help(){
 void stringTest(String echo){
     print("echo \""+`${ehco}`+'"');
 }
+void numTest(){
+    double var1 = 1E-3;
+    float var2 = var1 & 0b10001; 
+}
