@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import net.whynotjava.lynel.Exceptions.ParserException;
 import net.whynotjava.lynel.Exceptions.TokenizerException;
 
+import static net.whynotjava.lynel.Util.ArrayHelp.*;
+
 public class Tokenizer {
     public static String KEY_CHARS = "abcdefghijklmnopqrstuvwxyz1234567890_";
     public static int MAX_TOKEN_LENGH = 5000;
@@ -133,14 +135,6 @@ public class Tokenizer {
         t.token = operator;
 
         return t;
-    }
-
-    private static boolean inArray(String[] arr, String str) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals(str))
-                return true;
-        }
-        return false;
     }
 
     private static boolean isKeyChar(char c) {
