@@ -1,4 +1,4 @@
-package net.whynotjava.lynel;
+package net.whynotjava.lynel.Tokenizer;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Tokenizer {
     public static int MAX_TOKEN_LENGH = 5000;
     // public static int MAX_OPERATOR_LENGH = 3;
     public static String DOUBLED_OPERATORS[] = { "=", "+", "-", "*", "&", "|", ">", "<" };
-    public static String SINGLE_OPERATORS[] = { "%", "!" };
+    public static String SINGLE_OPERATORS[] = { "%", "!", "/" };
 
     public static ArrayList<String> tokenize(String input) throws TokenizerException, ParserException {
         ArrayList<String> tokens = new ArrayList<>();
@@ -27,11 +27,17 @@ public class Tokenizer {
             if (Character.isAlphabetic(typeChar)) {
                 t = parseKeyword(input);
 
-            } else if (typeChar == '{' || typeChar == '}' || typeChar == '(' || typeChar == ')' || typeChar == ';') {
+            } else if (typeChar == '{' || typeChar == '}' || typeChar == '(' || typeChar == ')' || typeChar == ';' || typeChar == ',') {
                 tokens.add(String.valueOf(typeChar));
                 input = input.substring(1, input.length());
             } else if (typeChar == '"' || typeChar == '\'' || typeChar == '`') {
                 t = parseString(input);
+            } else if (typeChar == '/' && input.charAt(1) == '/') {
+                int i = 0;
+                while (input.charAt(i) != '\n') {
+                    i++;
+                }
+                input = input.substring(i, input.length());
             } else if (inArray(DOUBLED_OPERATORS, String.valueOf(typeChar))
                     || inArray(SINGLE_OPERATORS, String.valueOf(typeChar))) {
                 t = parseOperator(input);
@@ -69,9 +75,11 @@ public class Tokenizer {
         t.offset = 1;
         while (t.offset < in.length()) {
             // System.out.println("String parser: offset["+t.offset+"], token="+t.token);
-            if(in.charAt(t.offset) == openChar){
-                // System.out.println("Potential Exit by current equals openChar. cur="+in.charAt(t.offset)+"; open="+openChar);
-                if(in.charAt(t.offset - 1) != '\\') break;
+            if (in.charAt(t.offset) == openChar) {
+                // System.out.println("Potential Exit by current equals openChar.
+                // cur="+in.charAt(t.offset)+"; open="+openChar);
+                if (in.charAt(t.offset - 1) != '\\')
+                    break;
             }
             t.token += in.charAt(t.offset);
             t.offset++;

@@ -1,4 +1,4 @@
-package net.whynotjava.lynel;
+package net.whynotjava.lynel.Tokenizer;
 
 public class Token {
     public String token = "";

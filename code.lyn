@@ -6,9 +6,22 @@ void help(){
     print(`x is ${x}`);
 }
 void stringTest(String echo){
-    print("echo \""+`${ehco}`+'"');
+    print("echo \""+`${ehco}`+'"'); // test comment
 }
 void numTest(){
     double var1 = 1E-3;
     float var2 = var1 & 0b10001; 
+}
+boolean theNestTest(int a, int b, int c, int d){
+    if(a){
+        if(b){
+            if(c){
+                if(d){
+                    print("Full nest!");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
