@@ -1,7 +1,5 @@
 package net.whynotjava.lynel.Runtime;
 
-import net.whynotjava.lynel.Runtime.Experesion.Value;
-
 public class Variable {
     public String type; 
     public String name;
@@ -16,33 +14,6 @@ public class Variable {
         this.type = type;
         this.name = name;
         this.value = value;
-    }
-
-    public void setValue(Value val){
-        switch (this.type) {
-            case "int":
-                value = (Integer) val.value;
-                break;
-            case "double":
-                value = (Double) val.value;
-                break;
-            case "float":
-                value = (Float) val.value;
-                break;
-            case "boolean":
-                value = (Boolean) val.value;
-                break;
-            case "char":
-                value = (Character) val.value;
-                break;
-            case "String":
-                value = (String) val.value;
-                break;
-        
-            default:
-                value = null;
-                break;
-        }
     }
 
     public void setDefaultValue(){
