@@ -98,35 +98,60 @@ public class ExperessionParser {
                 root = new ParseTree(root, atom, operator);
             }
         }
-
+        return orderParseTree(root);
     }
 
     public static ParseTree orderParseTree(ParseTree root) throws ParserException {
-        // order a parse tree using recursion.
-        ParseTree active = root;
-        boolean madeChange = true;
-        while(madeChange){
-            madeChange = false;
-            // if left is
-            if(active.left != null){
-                if(active.left.right != null){
-                    if(getOperatorPreecedenceLevel(active.value) > getOperatorPreecedenceLevel(active.left.value)){
-                        // preform switch
-                        ParseTree top = active.left;
-                        ParseTree rightTree = top.right;
-                        active.left = rightTree;
-                        top.right = active;
-                        root = top;
-                    }
-                }
-            }
-            // etc ...
+
+        // standard unorderd struct
+        //        operator
+        //        /      \
+        //   operator    value
+        //    /    \
+        //  value  value
+
+        if (root == null || root.value.equals("parentheses")) {
+            return root;
         }
 
+        root.right = orderParseTree(root.right);
+        root.left = orderParseTree(root.left);
+
+        if (root.left != null && root.left.right != null) { // this checks the left tree existing and that the left tree
+                                                            // is an operator by the fact that values (or stopping
+                                                            // points) have the right tree set to null
+            if (getOperatorPrecedenceLevel(root.value) > getOperatorPrecedenceLevel(root.left.value)) { // greater
+                                                                                                        // precendece
+                                                                                                        // sink to the
+                                                                                                        // bottom
+                ParseTree tmp1 = root.left;
+                root.left = tmp1.right;
+
+                tmp1.right = root;
+                root = orderParseTree(tmp1);
+                return root;
+            }
+        } else if (root.right != null && root.right.right != null) {
+            if (getOperatorPrecedenceLevel(root.value) > getOperatorPrecedenceLevel(root.right.value)) { // greater
+                                                                                                        // precendece
+                                                                                                        // sink to the
+                                                                                                        // bottom
+                ParseTree tmp1 = root.right;
+                root.right = tmp1.left;
+
+                tmp1.left = root;
+                root = orderParseTree(tmp1);
+                return root;
+            }
+        }
+        return root;
     }
 
-    public static int getOperatorPreecedenceLevel(String o) throws ParserException {
+    public static int getOperatorPrecedenceLevel(String o) throws ParserException {
         switch (o) {
+            case "parentheses":
+            case "negate":
+                return 255;
             case "**":
                 return 100;
             case "*":
