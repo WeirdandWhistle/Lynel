@@ -2,6 +2,7 @@ package net.whynotjava.lynel.Statements;
 
 import java.util.ArrayList;
 
+import net.whynotjava.lynel.Exceptions.ParserException;
 import net.whynotjava.lynel.Parser.ExperessionParser;
 import net.whynotjava.lynel.Parser.ParseTree;
 import net.whynotjava.lynel.Runtime.Context;
@@ -12,7 +13,7 @@ public class CreateVariable implements Statement {
     public String name;
     private ParseTree treeRoot;
 
-    public CreateVariable(String type, String name, ArrayList<String> tokens){
+    public CreateVariable(String type, String name, ArrayList<String> tokens) throws ParserException{
         this.type = type;
         this.name = name;
         treeRoot = ExperessionParser.parseTree(ExperessionParser.findStatement(tokens));

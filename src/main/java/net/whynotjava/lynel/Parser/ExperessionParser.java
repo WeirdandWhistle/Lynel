@@ -184,7 +184,6 @@ public class ExperessionParser {
                 return 75;
             default:
                 throw new ParserException("% " + o + " % is not an operator.");
-
         }
     }
 

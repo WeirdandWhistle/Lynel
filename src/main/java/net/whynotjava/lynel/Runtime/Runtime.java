@@ -32,14 +32,14 @@ public class Runtime {
                 i.getValue().log(i.getKey());
             }
 
-            FunctionContainer mainFunction = functions.get("main");
+            // FunctionContainer mainFunction = functions.get("main");
 
-            if(mainFunction == null) throw new ParserException("The main is not existent!");
-            functions.remove("main");
-            // System.out.println(mainFunction.returnType);
-            if(!mainFunction.returnType.equals("int")) throw new ParserException("The main MUST return an int type.");
+            // if(mainFunction == null) throw new ParserException("The main is not existent!");
+            // functions.remove("main");
+            // // System.out.println(mainFunction.returnType);
+            // if(!mainFunction.returnType.equals("int")) throw new ParserException("The main MUST return an int type.");
 
-            Integer returnCode = ((Integer) mainFunction.executeFunction(new Context(functions, null)));
+            
 
         } catch (Exception e) {
             e.printStackTrace();
